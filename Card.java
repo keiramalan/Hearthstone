@@ -8,6 +8,14 @@
 public class Card
 {
     // create card
+    private String name;
+    private int attack, defense;
+    /**
+     * Constructor
+     */
+    public Card(String nm, int at, int life) {
+        name = nm;
+        attack = at
     // assign random num for attack
     // return attack num
     // assign random num for defence
