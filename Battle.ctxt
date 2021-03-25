@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Battle
+comment0.text=\r\n\ Create\ two\ decks\ and\ simulate\ a\ fight\r\n\r\n\ @author\ Keira\ Malan\r\n\ @version\ 25/3/21\r\n
+comment1.params=
+comment1.target=Battle()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Battle\r\n
+comment2.params=
+comment2.target=void\ populateDecks()
+comment3.params=deck1
+comment3.target=int\ getAttackIndex(java.util.ArrayList)
+comment4.params=
+comment4.target=int\ flipResults()
+comment5.params=deck
+comment5.target=int\ deckAlive(java.util.ArrayList)
+comment6.params=
+comment6.target=void\ battleGround()
+comment7.params=args
+comment7.target=void\ main(java.lang.String[])
+numComments=8

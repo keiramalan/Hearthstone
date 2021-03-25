@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Card
+comment0.text=\r\n\ Create\ a\ card,\ assign\ it\ attack\ value,\ defence\ value\r\n\r\n\ @author\ Keira\ Malan\r\n\ @version\ 19/3/21\r\n
+comment1.params=nm
+comment1.target=Card(java.lang.String)
+comment1.text=\r\n\ Constructor\r\n
+comment2.params=
+comment2.target=int\ getAttack()
+comment3.params=
+comment3.target=int\ getDefense()
+comment4.params=
+comment4.target=boolean\ isAlive()
+comment5.params=amt
+comment5.target=void\ takeDamage(int)
+comment6.params=
+comment6.target=java.lang.String\ getName()
+numComments=7

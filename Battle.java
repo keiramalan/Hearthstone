@@ -13,6 +13,7 @@ public class Battle
     // deck lengths
     private final int DECKLENGTH = 7;
     private int coinFlip = 0;
+    private int winner = 0;
     
     /**
      * Constructor for objects of class Battle
@@ -46,40 +47,58 @@ public class Battle
         
     // Decide which deck attacks first
     public int flipResults() {
-         coinFlip = (int) (1+ Math.random() * 2); // choose first attacker
+        coinFlip = (int) (1+ Math.random() * 2); // choose first attacker
         return coinFlip;
     }
     
+    // check if a deck is alive
+    public int deckAlive(ArrayList<Card> deck) {
+        int counter = 0;
+        // loop through deck
+        for (int idx = 0; idx < DECKLENGTH; idx++) {
+            if (deck.get(idx).isAlive()) {
+                // if the card is alive, add to counter
+                counter += 1;
+            }
+        }
+        // return counter
+        return counter;
+    }
+    
     // attack function
-    public void battle() {
-        // loop through length of deck
+    public void battleGround() {
+        
         // choose which deck goes first
         int coinFlip = flipResults();
-        do { // check both sides are surviving
-            for (int idx = 0; idx < deck1.size(); idx++) { // attack left to right
-                
+        do { // check both sides are alive
                 Card attacker, defender;
-                if (coinFlip <=1) { 
-                    // deck 1 attacks first
-                    // choose cards for attack and defense
-                    attacker = deck1.get(idx);
+                if (coinFlip <=1) { // deck 1 attacks first
+                    
+                    // find first alive card in deck 1
+                    int attackerIdx1 = getAttackIndex(deck1);
+                    // assign it to attack
+                    attacker = deck1.get(attackerIdx1);
                     
                     // randomly choose victim
-                    int defenderIdx = (int)(Math.random() * deck2.size());
-                    defender = deck2.get(defenderIdx);
-                    
+                    do { 
+                        int defenderIdx1 = (int)(Math.random() * deck2.size());
+                        defender = deck2.get(defenderIdx1);
+                    } while (defender.isAlive() == false); // check if they're deaad
+
                     // Get attack and deal to enemy
                     defender.takeDamage(attacker.getAttack());
                     // Defender attacks back
                     attacker.takeDamage(defender.getAttack());
                     
                     // deck 2 attacks second
-                    
-                    attacker = deck2.get(idx);
+                    int attackerIdx2 = getAttackIndex(deck2);
+                    attacker = deck2.get(attackerIdx2);
                     
                     // randomly choose victim
-                    int defenderIdx = (int)(Math.random() * deck1.size());
-                    defender = deck1.get(defenderIdx);
+                    do { 
+                        int defenderIdx2 = (int)(Math.random() * deck2.size());
+                        defender = deck2.get(defenderIdx2);
+                    } while (defender.isAlive() == false); // check if they're deaad
                     
                     // Get attack and deal to enemy
                     defender.takeDamage(attacker.getAttack());
@@ -88,42 +107,84 @@ public class Battle
                     
                 }
                 
-                if (first > 1) { // 2nd deck attack first
-                    // choose cards for attack and defense
-                    attacker = deck2.get(idx);
+                if (coinFlip > 1) { // 2nd deck attack first
+                    
+                    // find first alive card in deck 2
+                    int attackerIdx1 = getAttackIndex(deck2);
+                    // assign it to attack
+                    attacker = deck2.get(attackerIdx1);
                     
                     // randomly choose victim
                     do { 
-                        int defenderIdx = (int)(Math.random() * deck2.size());
-                        defender = deck2.get(defenderIdx);
-                    } while (deck2.get(defender).isAlive() == false); // repeat for dead
-                    
-                    
-                    
+                        int defenderIdx1 = (int)(Math.random() * deck1.size());
+                        defender = deck1.get(defenderIdx1);
+                    } while (defender.isAlive() == false); // check if they're deaad
+
                     // Get attack and deal to enemy
                     defender.takeDamage(attacker.getAttack());
                     // Defender attacks back
                     attacker.takeDamage(defender.getAttack());
                     
                     // deck 1 attacks second
+                    int attackerIdx2 = getAttackIndex(deck1);
+                    attacker = deck1.get(attackerIdx1);
                     
-                    attacker = deck1.get(idx);
-                    
-                    // randomly choose victim
-                    int defenderIdx = (int)(Math.random() * deck2.size());
-                    defender = deck2.get(defenderIdx);
+                    // randomly choose victim from deck 2
+                    do { 
+                        int defenderIdx2 = (int)(Math.random() * deck2.size());
+                        defender = deck2.get(defenderIdx2);
+                    } while (defender.isAlive() == false); // check if they're deaad
                     
                     // Get attack and deal to enemy
                     defender.takeDamage(attacker.getAttack());
                     // Defender attacks back
                     attacker.takeDamage(defender.getAttack());
                 }
-            }
-        } while (checkWinner() == -1);
+        } // check there are cards alive in both decks 
+        while (deckAlive(deck1) > 0 && deckAlive(deck2) > 0);
+        
+        // return winner stats
+        // check for a tie
+        if (deckAlive(deck1) <= 0 && deckAlive(deck2) <= 0) {
+            winner = 0; // 0 means tie
+        }
+        else if (deckAlive(deck2) <= 0) {
+            winner = 1; // deck 1 won
+        }
+        else if (deckAlive(deck1) <= 0) {
+            winner = 2; // deck 2 won
+        }
     }
-        // attack left to right by iterating through array
-        // simulate game 10,00 times
-        // produce stats
-        // actually play game with print statments
+
     
+    public static void main(String[] args) {    // simulate game 10,00 times
+        Battle b = new Battle();
+        final int GAMELOOP = 1000;
+        int deck1Win = 0;
+        int deck2Win = 0;
+        int tie = 0;
+
+        // run game 10,000 times
+        for (int index = 0; index < GAMELOOP; index++) {
+            // produce stats
+            // play game
+            b.battleGround();
+            
+            // if statements for statistics
+            if (b.winner == 0) {
+                tie += 1;
+            }
+            else if (b.winner == 1) {
+                deck1Win += 1;
+            }
+            else if (b.winner == 2) {
+                deck2Win += 2;
+            }
+        
+        }
+        // print stats
+        System.out.println("Your chances of winning are" + (deck1Win / GAMELOOP) * 100);
+        System.out.println("Your chances of losing are" + (deck2Win / GAMELOOP) * 100);
+        System.out.println("Your chances of a tie are" + (tie / GAMELOOP) * 100);
+    }
 }
