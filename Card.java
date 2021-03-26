@@ -9,20 +9,30 @@ public class Card
 {
     // create card
     private String name;
-    private int attack, defense;
+    private int attack;
+    private int defense;
     final int MAXATTACK = 15;
     final int MAXDEFENSE = 15;
+    final int MIN = 1;
 
     /**
      * Constructor
      */
-    public Card(String nm) {
+    public Card(String nm, int at, int def) {
         // randomly assign attack number
-        attack = (int) (Math.random() * MAXATTACK);
+        //attack = (int) (Math.random() * MAXATTACK);
         // randomly assign defense number
-        defense = (int) (Math.random() * MAXDEFENSE);
+        //defense = (int) (MIN + Math.random() * MAXDEFENSE);
         // reassign name
         name = nm;
+        attack = at;
+        defense = def;
+    }
+    
+    public Card makeCopy() {
+        Card c = new Card(name, attack, defense);
+        
+        return c;
     }
     
     //return attack number
