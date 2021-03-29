@@ -25,13 +25,23 @@ public class Battle
     
     // populate both decks
     public void populateDecks() {
-        int randomAt = (int)
+        // assign liimits to attack/defense
+        final int MAXATTACK = 15;
+        final int MAXDEFENSE = 15;
+        final int MIN = 1;
+        
+        int randomAt = (int) (1 + Math.random() * 2);
         // for loop to populate deck with 7 cards
         for (int idx = 0; idx < DECKLENGTH; idx++) {
-            //
-            deck1.add(new Card(("Card " + Integer.toString(idx + 1)), randomAt, 1);
-            //
-            deck2.add(new Card("Card " + Integer.toString(idx + 1)));
+            // create first deck
+            // randomly assign attack number
+            int attack = (int) (MIN + Math.random() * MAXATTACK);
+            // randomly assign defense number
+            int defense = (int) (MIN + Math.random() * MAXDEFENSE);
+            // assign random attack and defense variables
+            deck1.add(new Card(("Card " + Integer.toString(idx + 1)), randomAt, 1));
+            // create second deck
+            deck2.add(new Card(("Card " + Integer.toString(idx + 1)), randomAt, 1));
         }
     }
 
@@ -174,11 +184,11 @@ public class Battle
         
 
         // run game 10,000 times
-        for (int index = 0; index < GAMELOOP; index++) {
+        //for (int index = 0; index < GAMELOOP; index++) {
             // produce stats
             // play game
             int winner = b.battleGround();
-            System.out.println(winner);
+            System.out.println("The winner is deck: " + winner);
             // if statements for statistics
             if (winner == 0) {
                 tie += 1;
@@ -190,10 +200,10 @@ public class Battle
                 deck2Win += 2;
             }
         
-        }
+        //}
         // print stats
-        System.out.println("Your chances of winning are " + (deck1Win / GAMELOOP) * 100);
-        System.out.println("Your chances of losing are " + (deck2Win / GAMELOOP) * 100);
-        System.out.println("Your chances of a tie are " + (tie / GAMELOOP) * 100);
+        //System.out.println("Your chances of winning are " + (deck1Win / GAMELOOP) * 100);
+        //System.out.println("Your chances of losing are " + (deck2Win / GAMELOOP) * 100);
+        //System.out.println("Your chances of a tie are " + (tie / GAMELOOP) * 100);
     }
 }
