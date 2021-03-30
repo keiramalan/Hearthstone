@@ -1,12 +1,1 @@
-------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all he/she needs to know. The comments should usually include at least:
-------------------------------------------------------------------------
-
-PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
-USER INSTRUCTIONS:
+My laptop broke so I couldn't finish the task - I originally finished the core but had issues with the same object being reused so a card's defense value would keep on decreasing instead of resetting to its original value so I stripped it back down to running once. I was planning on creating a person class to create copies of the object and simulate it to create stats.
